@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <script type="text/javascript">jQuery.noConflict();</script>
+    <script src="http://a.vimeocdn.com/js/froogaloop2.min.js"></script>
+
+    <script type="text/javascript">
+
+   jQuery(document).ready( function() { 
+       var showing_player = false;
+       var froogaloop = $f('froog');
+
+           console.log(' === Page Ready ===> Setting up');
+       jQuery('.froog_container_class').hide();
+       jQuery('.console').css('height', '100%');
+
+       froogaloop.addEvent('ready', function() { 
+
+             console.log('====  PLAYER READY ====> Setting Play Callback');
+                froogaloop.addEvent('play', function(data) { 
+                console.log('EVENT -- Play');
+                /* No idea why, but if the player isn't displayed, it goes
+                   straight to 'pause'. Probably a feature. So I give it 4x4px
+                   to do it's thing during setup */
+                jQuery('.froog_container_class').show();
+                jQuery('.froog_container_class').css('height', '4px');
+                jQuery('.froog_container_class').css('width', '4px');
+                jQuery('.froog_container_class').css('overflow', 'hidden');
+            });
+
+           /* I don't want to reveal the video until it is actually
+              playing. So I do that here */
+           var showingPlayer = false;
+           froogaloop.addEvent('playProgress', function(data) {
+               if(!showingPlayer && data.percent > 0) {
+                  showingPlayer = true;
+                  jQuery('.froog_container_class').show();
+                  jQuery('.froog_container_class').css('height', '_windowHeight');
+                  jQuery('.froog_container_class').css('width', '_windowWidth');
+                  /* Most tablets I tested aren't quick enough to make this work
+                     but one can still hope */
+                  jQuery('#loading').fadeOut('slow');
+               }
+           });
+
+       });
+});
+
+    </script>
+</head>
+<body>
+<style>
+    body {
+    background-image: url('http://
+    <SomethingEntertainingToWatch>.png');
+        background-size: contain;
+        }
+        .mask {
+        float: left;
+        height: _windowHeight;
+        width: _windowWidth;
+        z-index: 100;
+        background: transparent;
+        display: inline;
+        position: absolute;
+        top: 0;
+        left: 0;
+        }
+        .froog_container_class {
+        position: absolute;
+        height: _windowHeight;
+        width: _windowWidth;
+        left: 0;
+        top: 0;
+        display: inline;
+        z-index: 1;
+        }
+        #froog {
+        display: inline;
+        height: _windowHeight;
+        width: _windowWidth;
+        postion: absolute;
+        top: 0;
+        left: 0;
+        }
+ </style>
+<div id="loading" class="loading"><h1>Loading</h1><img class="loading_anim"
+                                                       src="http://foo.bar.com/assets/global/loading.gif"/>
+</div>
+<!-- Completely optional, I put a div in front of the player to block controls -->
+<div id="mask" class="mask">
+</div>
+<div id="froog_container" class="froog_container_class">
+    <iframe src="https://player.vimeo.com/video/73315910?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0" width="1280" height="720" frameborder="0" title="Mike Mago - The Show (official music videoclip)" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+</div>
+</body>
+</html>

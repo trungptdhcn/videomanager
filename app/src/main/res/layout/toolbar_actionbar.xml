@@ -1,0 +1,19 @@
+<android.support.v7.widget.Toolbar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/toolbar_actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?android:attr/actionBarSize"
+        android:background="@color/red_simi_press"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        >
+    <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/youtube_logo"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/spacing_small"
+            />
+</android.support.v7.widget.Toolbar>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<categories>
+    <category id="" name="Any"/>
+    <category id="shortter" name="Short"/>
+    <category id="mediumter" name="Med.(4 - 10:00)"/>
+    <category id="longter" name="(> 10:00)"/>
+</categories>

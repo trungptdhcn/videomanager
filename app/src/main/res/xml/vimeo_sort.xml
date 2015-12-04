@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<categories>
+    <category id="lastest" name="Lastest"/>
+    <category id="relevance" name="Relevance"/>
+    <category id="populality" name="Popularity"/>
+    <category id="alphabetical-a-z" name="Alphabetical(A-Z)"/>
+    <category id="alphabetical-z-a" name="Alphabetical(Z-A)"/>
+    <category id="longest" name="Longest"/>
+    <category id="shortest" name="Shortest"/>
+</categories>

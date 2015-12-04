@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:facebook="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <!--<RelativeLayout-->
+            <!--android:id="@+id/rlLogin"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+        <!--<com.facebook.login.widget.LoginButton-->
+                <!--android:id="@+id/btLogin"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_marginRight="@dimen/spacing_normal"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--facebook:com_facebook_confirm_logout="false"-->
+                <!--facebook:com_facebook_tooltip_mode="never_display"-->
+                <!--/>-->
+        <!--<com.facebook.login.widget.ProfilePictureView-->
+                <!--android:id="@+id/profilePicture"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_alignParentLeft="true"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--facebook:com_facebook_preset_size="normal"-->
+                <!--android:layout_alignParentTop="true"-->
+                <!--android:layout_marginLeft="@dimen/spacing_normal"-->
+                <!--/>-->
+        <!--<TextView-->
+                <!--android:id="@+id/profileName"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_toRightOf="@+id/profilePicture"-->
+                <!--android:text="Trung Pham"-->
+                <!--android:layout_centerVertical="true"-->
+                <!--android:layout_marginLeft="@dimen/spacing_small"/>-->
+    <!--</RelativeLayout>-->
+    <include layout="@layout/edt_search"
+             android:id="@+id/layoutSearch"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@drawable/bg_edtsearch"
+             android:layout_marginTop="@dimen/spacing_small"
+             android:layout_marginLeft="@dimen/spacing_normal"
+             android:layout_marginRight="@dimen/spacing_normal"
+             ></include>
+    <include
+            layout="@layout/listview_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/spacing_small"
+            android:layout_below="@id/layoutSearch"></include>
+    <include
+            layout="@layout/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            ></include>
+</RelativeLayout>

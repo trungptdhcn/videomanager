@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<categories>
+    <category id="" name="Any"/>
+    <category id="CC" name="CC"/>
+    <category id="CC-BY" name="CC BY"/>
+    <category id="CC-BY-SA" name="CC BY-SA"/>
+    <category id="CC-BY-ND" name="CC BY-ND"/>
+    <category id="CC-BY-NC" name="CC BY-NC"/>
+    <category id="CC-BY-NC-SA" name="CC BY-NC-SA"/>
+    <category id="CC-BY-NC-ND" name="CC BY-NC-ND"/>
+</categories>

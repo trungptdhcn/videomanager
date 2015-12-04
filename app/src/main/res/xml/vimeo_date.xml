@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<categories>
+    <category id="" name="Any"/>
+    <category id="this-year" name="This Year"/>
+    <category id="this-month" name="This Month"/>
+    <category id="this-week" name="This Week"/>
+    <category id="today" name="Today"/>
+</categories>
