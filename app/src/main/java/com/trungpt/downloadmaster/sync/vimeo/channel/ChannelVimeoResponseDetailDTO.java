@@ -1,4 +1,4 @@
-package com.trungpt.downloadmaster.sync.vimeo.user;
+package com.trungpt.downloadmaster.sync.vimeo.channel;
 
 import com.google.gson.annotations.SerializedName;
 import com.trungpt.downloadmaster.sync.vimeo.VimeoResponseMetaDataDTO;
@@ -7,14 +7,17 @@ import com.trungpt.downloadmaster.sync.vimeo.VimeoResponsePicturesDTO;
 /**
  * Created by Trung on 12/4/2015.
  */
-public class UserVimeoResponseDetailDTO
+public class ChannelVimeoResponseDetailDTO
 {
     private String uri;
     private String name;
-    private String location;
+    @SerializedName("description")
+    private String description;
     private String link;
-    private String bio;
-    private String account;
+    @SerializedName("user")
+    private UserVimeoOfChannelResponseDTO userVimeoOfChannelResponseDTO;
+    @SerializedName("header")
+    private ChannelVimeoHeaderResponseDTO imageCover;
     @SerializedName("pictures")
     private VimeoResponsePicturesDTO vimeoPicturesDTO;
     @SerializedName("metadata")
@@ -30,16 +33,6 @@ public class UserVimeoResponseDetailDTO
         this.name = name;
     }
 
-    public String getLocation()
-    {
-        return location;
-    }
-
-    public void setLocation(String location)
-    {
-        this.location = location;
-    }
-
     public String getLink()
     {
         return link;
@@ -50,24 +43,14 @@ public class UserVimeoResponseDetailDTO
         this.link = link;
     }
 
-    public String getBio()
+    public String getDescription()
     {
-        return bio;
+        return description;
     }
 
-    public void setBio(String bio)
+    public void setDescription(String description)
     {
-        this.bio = bio;
-    }
-
-    public String getAccount()
-    {
-        return account;
-    }
-
-    public void setAccount(String account)
-    {
-        this.account = account;
+        this.description = description;
     }
 
     public VimeoResponsePicturesDTO getVimeoPicturesDTO()
@@ -98,5 +81,25 @@ public class UserVimeoResponseDetailDTO
     public void setUri(String uri)
     {
         this.uri = uri;
+    }
+
+    public ChannelVimeoHeaderResponseDTO getImageCover()
+    {
+        return imageCover;
+    }
+
+    public void setImageCover(ChannelVimeoHeaderResponseDTO imageCover)
+    {
+        this.imageCover = imageCover;
+    }
+
+    public UserVimeoOfChannelResponseDTO getUserVimeoOfChannelResponseDTO()
+    {
+        return userVimeoOfChannelResponseDTO;
+    }
+
+    public void setUserVimeoOfChannelResponseDTO(UserVimeoOfChannelResponseDTO userVimeoOfChannelResponseDTO)
+    {
+        this.userVimeoOfChannelResponseDTO = userVimeoOfChannelResponseDTO;
     }
 }

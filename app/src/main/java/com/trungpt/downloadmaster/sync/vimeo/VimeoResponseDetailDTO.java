@@ -2,6 +2,8 @@ package com.trungpt.downloadmaster.sync.vimeo;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigInteger;
+
 /**
  * Created by Trung on 11/25/2015.
  */
@@ -11,7 +13,7 @@ public class VimeoResponseDetailDTO
     private String name;
     private String description;
     private String link;
-    private Integer duration;
+    private int duration;
     @SerializedName("embed")
     private VimeoResponseEmbedDTO embedDTO;
     private String created_time;
@@ -69,12 +71,12 @@ public class VimeoResponseDetailDTO
         this.link = link;
     }
 
-    public Integer getDuration()
+    public int getDuration()
     {
         return duration;
     }
 
-    public void setDuration(Integer duration)
+    public void setDuration(int duration)
     {
         this.duration = duration;
     }

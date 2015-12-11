@@ -64,6 +64,23 @@
             android:name=".ui.activity.VimeoSearchActivity"
             android:label="@string/title_activity_vimeo_search" >
         </activity>
+        <activity
+            android:name=".ui.activity.ListVideoActivity"
+            android:label="@string/title_activity_list_video"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".ui.activity.DailimotionSearchActivity"
+            android:label="@string/title_activity_dailimotion_search" >
+        </activity>
+        <activity
+            android:name=".ui.activity.ListVideoDailymotionActivity"
+            android:label="@string/title_activity_list_video_dailymotion" >
+        </activity>
+        <activity
+            android:name=".ui.activity.YoutubeSearchActivity"
+            android:label="@string/title_activity_youtube_search" >
+        </activity>
     </application>
 
 </manifest>

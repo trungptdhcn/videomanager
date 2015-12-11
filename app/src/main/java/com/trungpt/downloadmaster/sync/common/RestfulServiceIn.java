@@ -1,13 +1,12 @@
 package com.trungpt.downloadmaster.sync.common;
 
-import com.squareup.okhttp.Call;
-import com.squareup.okhttp.ResponseBody;
 import com.trungpt.downloadmaster.sync.dailymotion.DailymotionDTO;
+import com.trungpt.downloadmaster.sync.dailymotion.DailymotionPlayListDTO;
 import com.trungpt.downloadmaster.sync.vimeo.VimeoResponseDTO;
 import com.trungpt.downloadmaster.sync.vimeo.direct.VimeoDirectDTO;
-import com.trungpt.downloadmaster.sync.vimeo.user.UserVimeoResponseDTO;
+import com.trungpt.downloadmaster.sync.vimeo.channel.ChannelVimeoResponseDTO;
+
 import retrofit.Callback;
-import retrofit.client.Response;
 import retrofit.http.GET;
 import retrofit.http.Headers;
 import retrofit.http.Path;
@@ -68,9 +67,9 @@ public interface RestfulServiceIn
             "Accept: application/vnd.vimeo.*+json; version=3.2",
             "Authorization: bearer b7cb6935fae643704ecf844b216cacb4"
     })
-    @GET("/users")
-    public UserVimeoResponseDTO searchUser(
-              @Query("query") String query
+    @GET("/channels")
+    public ChannelVimeoResponseDTO searchUser(
+            @Query("query") String query
             , @Query("sort") String sort
             , @Query("direction") String direction
             , @Query("per_page") int perpage
@@ -80,6 +79,13 @@ public interface RestfulServiceIn
     @GET("/video/{id}/config")
     public void getDirectLink(@Path("id") String id, Callback<VimeoDirectDTO> callback);
 
+
+    @Headers({
+            "Accept: application/vnd.vimeo.*+json; version=3.2",
+            "Authorization: bearer b7cb6935fae643704ecf844b216cacb4"
+    })
+    @GET("/channels/{channel_id}/videos")
+    public VimeoResponseDTO getVideosByUser(@Path("channel_id") String category, @Query("per_page") int perpage, @Query("page") String page);
 
 
 //    @Headers({
@@ -100,13 +106,45 @@ public interface RestfulServiceIn
 //            , @Query("page") Long page
 //            , @Query("limit") Long limit);
 //
+//    ============================Dailymotion========================
     @GET("/videos")
     public DailymotionDTO searchDailymotion(
             @Query("search") String keywords
             , @Query("fields") String fields
             , @Query("flags") String flags
             , @Query("sort") String sort
+            , @Query("country") String country
+            , @Query("longer_than") Integer longerThan
+            , @Query("shorter_than") Integer shorterThan
+            , @Query("page") int page
+            , @Query("limit") int limit
+    );
+
+    @GET("/playlists")
+    public DailymotionPlayListDTO searchDailymotionPlaylist(
+            @Query("search") String search
+            , @Query("fields") String fields
+            , @Query("sort") String sort
+            , @Query("page") int page
+            , @Query("limit") int limit
+    );
+
+    @GET("/playlist/{playlist_id}/videos")
+    public DailymotionDTO getVideoByPlaylistId(
+            @Path("playlist_id") String playListId
+            , @Query("fields") String fields
+            , @Query("sort") String sort
+            , @Query("page") int page
+            , @Query("limit") int limit
+    );
+
+    @GET("/videos")
+    public DailymotionDTO mostPopular(
+            @Query("fields") String fields
+            , @Query("flags") String flags
+            , @Query("sort") String sort
             , @Query("page") int page
             , @Query("limit") int limit);
+
 
 }

@@ -23,5 +23,10 @@
     <string name="title_activity_dailymotion_detail">DailymotionDetailActivity</string>
     <string name="title_activity_vimeo_search">VimeoSearchActivity</string>
     <string name="bt_done">Done</string>
+    <string name="title_activity_list_video">ListVideoActivity</string>
+    <string name="title_activity_dailimotion_search">DailimotionSearchActivity</string>
+    <string name="title_activity_list_video_dailymotion">ListVideoDailymotionActivity</string>
+    <string name="lorem_ipsum">Test</string>
+    <string name="title_activity_youtube_search">YoutubeSearchActivity</string>
 
 </resources>

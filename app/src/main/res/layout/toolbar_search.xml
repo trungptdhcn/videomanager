@@ -6,24 +6,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="?android:attr/actionBarSize"
-        android:background="@color/blue_vimeo"
+        android:background="@color/gray"
         app:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         >
-    <include
-            layout="@layout/bt_advanced"
+    <ImageButton
+            android:id="@+id/btAdvancedFilter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/spacing_small"
-            android:layout_marginLeft="@dimen/spacing_small"
+            android:src="@drawable/ic_filter"
+            android:background="@android:color/transparent"
             android:layout_gravity="right|center_vertical"
-            />
+            android:layout_marginRight="@dimen/spacing_normal"
+            android:layout_marginLeft="@dimen/spacing_normal"/>
     <include layout="@layout/edt_search"
              android:id="@+id/layoutSearch"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:layout_marginTop="@dimen/spacing_small"
              android:layout_marginLeft="@dimen/spacing_small"
-             android:layout_marginRight="@dimen/spacing_small"
+             android:layout_marginRight="@dimen/spacing_normal"
              android:layout_gravity="left|center_vertical"
             />
 </android.support.v7.widget.Toolbar>

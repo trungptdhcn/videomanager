@@ -6,12 +6,11 @@
         android:orientation="horizontal"
         >
 
-    <EditText
+    <android.support.v7.widget.AppCompatEditText
             android:id="@+id/edtSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="40dp"
-            android:background="@drawable/bg_edtsearch"
             android:drawableRight="@drawable/search"
             android:paddingRight="@dimen/spacing_small"
             android:paddingLeft="@dimen/spacing_small"

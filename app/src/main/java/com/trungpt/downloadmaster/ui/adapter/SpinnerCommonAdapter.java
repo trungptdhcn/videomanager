@@ -70,4 +70,9 @@ public class SpinnerCommonAdapter extends ArrayAdapter<String>
         tvTitle.setText(items[position]);
         return v;
     }
+
+    public void setItems(String[] items)
+    {
+        this.items = items;
+    }
 }

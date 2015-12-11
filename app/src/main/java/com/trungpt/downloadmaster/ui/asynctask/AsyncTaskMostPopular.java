@@ -44,13 +44,13 @@ public class AsyncTaskMostPopular extends AsyncTask<Void, Void, Object>
         switch (host_name)
         {
             case YOUTUBE:
-//                o = ytbConnect.search(requestDTO);
+                o = ytbConnect.mostPopulars(requestDTO);
                 break;
             case VIMEO:
                 o = vimeoConnect.videoCategories(requestDTO);
                 break;
             case DAILYMOTION:
-//                o = dailymotionConnector.search(requestDTO);
+                o = dailymotionConnector.mostPopular(requestDTO);
         }
         return o;
     }

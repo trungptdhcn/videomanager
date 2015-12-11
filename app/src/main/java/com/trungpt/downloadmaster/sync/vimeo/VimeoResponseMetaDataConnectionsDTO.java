@@ -13,6 +13,8 @@ public class VimeoResponseMetaDataConnectionsDTO
     private VimeoResponseFollowingDTO vimeoResponseFollowingDTO;
     @SerializedName("videos")
     private VimeoResponseVideoDTO vimeoResponseVideoDTO;
+    @SerializedName("users")
+    private VimeoResponseUserOfChannelDTO userOfChannel;
     public VimeoResponseLikesDTO getVimeoResponseLikesDTO()
     {
         return vimeoResponseLikesDTO;
@@ -41,5 +43,15 @@ public class VimeoResponseMetaDataConnectionsDTO
     public void setVimeoResponseVideoDTO(VimeoResponseVideoDTO vimeoResponseVideoDTO)
     {
         this.vimeoResponseVideoDTO = vimeoResponseVideoDTO;
+    }
+
+    public VimeoResponseUserOfChannelDTO getUserOfChannel()
+    {
+        return userOfChannel;
+    }
+
+    public void setUserOfChannel(VimeoResponseUserOfChannelDTO userOfChannel)
+    {
+        this.userOfChannel = userOfChannel;
     }
 }

@@ -1,20 +1,21 @@
 package com.trungpt.downloadmaster.ui.adapter;
 
+import java.io.Serializable;
 import java.math.BigInteger;
 
 /**
- * Created by Trung on 12/4/2015.
+ * Created by trung on 12/8/2015.
  */
-public class User
+public class User  extends Item
 {
     private String name;
-    private String url;
-    private String description;
-    private String website;
-    private String urlCover;
     private String id;
+    private String urlAvatar;
+    private String bio;
     private BigInteger follows;
-    private BigInteger videos;
+    private BigInteger likes;
+    private String location;
+    private String website;
 
     public String getName()
     {
@@ -24,46 +25,6 @@ public class User
     public void setName(String name)
     {
         this.name = name;
-    }
-
-    public String getUrl()
-    {
-        return url;
-    }
-
-    public void setUrl(String url)
-    {
-        this.url = url;
-    }
-
-    public String getDescription()
-    {
-        return description;
-    }
-
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-
-    public String getWebsite()
-    {
-        return website;
-    }
-
-    public void setWebsite(String website)
-    {
-        this.website = website;
-    }
-
-    public String getUrlCover()
-    {
-        return urlCover;
-    }
-
-    public void setUrlCover(String urlCover)
-    {
-        this.urlCover = urlCover;
     }
 
     public String getId()
@@ -76,6 +37,26 @@ public class User
         this.id = id;
     }
 
+    public String getUrlAvatar()
+    {
+        return urlAvatar;
+    }
+
+    public void setUrlAvatar(String urlAvatar)
+    {
+        this.urlAvatar = urlAvatar;
+    }
+
+    public String getBio()
+    {
+        return bio;
+    }
+
+    public void setBio(String bio)
+    {
+        this.bio = bio;
+    }
+
     public BigInteger getFollows()
     {
         return follows;
@@ -86,13 +67,33 @@ public class User
         this.follows = follows;
     }
 
-    public BigInteger getVideos()
+    public String getLocation()
     {
-        return videos;
+        return location;
     }
 
-    public void setVideos(BigInteger videos)
+    public void setLocation(String location)
     {
-        this.videos = videos;
+        this.location = location;
+    }
+
+    public String getWebsite()
+    {
+        return website;
+    }
+
+    public void setWebsite(String website)
+    {
+        this.website = website;
+    }
+
+    public BigInteger getLikes()
+    {
+        return likes;
+    }
+
+    public void setLikes(BigInteger likes)
+    {
+        this.likes = likes;
     }
 }

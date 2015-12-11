@@ -14,6 +14,7 @@ public class VimeoRequestDTO extends RequestDTO implements Serializable
     private final String sort;
     private final String direction;
     private final String filter;
+    private final String type;
     private String pageToken;
 
     public VimeoRequestDTO(VimeoRequestBuilder builder)
@@ -24,6 +25,7 @@ public class VimeoRequestDTO extends RequestDTO implements Serializable
         this.direction = builder.direction;
         this.filter = builder.filter;
         this.pageToken = builder.pageToken;
+        this.type = builder.type;
     }
 
     public String getKeyWord()
@@ -60,6 +62,12 @@ public class VimeoRequestDTO extends RequestDTO implements Serializable
     {
         return category;
     }
+
+    public String getType()
+    {
+        return type;
+    }
+
 
     public static class VimeoRequestBuilder
     {

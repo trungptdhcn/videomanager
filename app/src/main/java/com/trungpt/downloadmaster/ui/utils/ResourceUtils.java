@@ -96,9 +96,70 @@ public class ResourceUtils
         return vimeoCategories;
     }
 
+    public static List<VimeoCategory> getDuaration(Context context, int xml) throws XmlPullParserException, IOException
+    {
+        XmlResourceParser xmlResourceParser = context.getResources().getXml(xml);
+        int eventType = xmlResourceParser.getEventType();
+        List<VimeoCategory> vimeoCategories = new ArrayList<>();
+        while (eventType != XmlPullParser.END_DOCUMENT)
+        {
+            if (eventType == XmlPullParser.START_TAG)
+            {
+                if (xmlResourceParser.getName().equals("category"))
+                {
+                    VimeoCategory vimeoCategory = new VimeoCategory(xmlResourceParser.getAttributeValue(0), xmlResourceParser.getAttributeValue(1));
+                    vimeoCategories.add(vimeoCategory);
+                }
+            }
+            eventType = xmlResourceParser.next();
+        }
+        return vimeoCategories;
+    }
+
     public static List<VimeoCategory> getShortBy(Context context) throws XmlPullParserException, IOException
     {
         XmlResourceParser xmlResourceParser = context.getResources().getXml(R.xml.vimeo_sort);
+        int eventType = xmlResourceParser.getEventType();
+        List<VimeoCategory> vimeoCategories = new ArrayList<>();
+        while (eventType != XmlPullParser.END_DOCUMENT)
+        {
+            if (eventType == XmlPullParser.START_TAG)
+            {
+                if (xmlResourceParser.getName().equals("category"))
+                {
+                    VimeoCategory vimeoCategory = new VimeoCategory(xmlResourceParser.getAttributeValue(0), xmlResourceParser.getAttributeValue(1));
+                    vimeoCategories.add(vimeoCategory);
+                }
+            }
+            eventType = xmlResourceParser.next();
+        }
+        return vimeoCategories;
+    }
+
+    public static List<VimeoCategory> getListCountryCode(Context context) throws XmlPullParserException, IOException
+    {
+        XmlResourceParser xmlResourceParser = context.getResources().getXml(R.xml.countrycode);
+        int eventType = xmlResourceParser.getEventType();
+        List<VimeoCategory> countries = new ArrayList<>();
+
+        while (eventType != XmlPullParser.END_DOCUMENT)
+        {
+            if (eventType == XmlPullParser.START_TAG)
+            {
+                if (xmlResourceParser.getName().equals("country"))
+                {
+                    VimeoCategory country = new VimeoCategory(xmlResourceParser.getAttributeValue(0), xmlResourceParser.getAttributeValue(2));
+                    countries.add(country);
+                }
+            }
+            eventType = xmlResourceParser.next();
+        }
+        return countries;
+    }
+
+    public static List<VimeoCategory> getStringResource(Context context, int xml) throws XmlPullParserException, IOException
+    {
+        XmlResourceParser xmlResourceParser = context.getResources().getXml(xml);
         int eventType = xmlResourceParser.getEventType();
         List<VimeoCategory> vimeoCategories = new ArrayList<>();
         while (eventType != XmlPullParser.END_DOCUMENT)

@@ -1,11 +1,13 @@
 package com.trungpt.downloadmaster.ui.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.*;
@@ -15,40 +17,18 @@ import butterknife.OnClick;
 import butterknife.OnItemClick;
 import com.trungpt.downloadmaster.R;
 import com.trungpt.downloadmaster.common.StringUtils;
-import com.trungpt.downloadmaster.sync.dto.RequestDTO;
 import com.trungpt.downloadmaster.sync.vimeo.request.VimeoRequestDTO;
 import com.trungpt.downloadmaster.ui.adapter.*;
 import com.trungpt.downloadmaster.ui.asynctask.AsyncTaskSearchData;
-import com.trungpt.downloadmaster.ui.asynctask.AsyncTaskSearchUsers;
 import com.trungpt.downloadmaster.ui.listener.AsyncTaskListener;
-import com.trungpt.downloadmaster.ui.listener.AsyncTaskUsersListener;
 import com.trungpt.downloadmaster.ui.listener.EndlessScrollListener;
 import com.trungpt.downloadmaster.ui.utils.Constant;
-import com.trungpt.downloadmaster.ui.utils.ResourceUtils;
-import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
 import java.util.List;
 
-public class VimeoSearchActivity extends Activity implements AsyncTaskListener, CompoundButton.OnCheckedChangeListener
-        , TextView.OnEditorActionListener,AsyncTaskUsersListener
+public class VimeoSearchActivity extends Activity implements AsyncTaskListener
+        , TextView.OnEditorActionListener
 {
-    @Bind(R.id.rlAdvancedSearch)
-    RelativeLayout rlAdvancedSearch;
-    @Bind(R.id.btAdvancedSearch)
-    CheckBox btAdvancedSearch;
-
-
-    @Bind(R.id.spinner_type)
-    AppCompatSpinner spType;
-    @Bind(R.id.spinner_sort)
-    AppCompatSpinner spSort;
-    //    ======================
-    @Bind(R.id.spinner_direction)
-    AppCompatSpinner spDirection;
-    @Bind(R.id.spinner_filter)
-    AppCompatSpinner spFilter;
-
 
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
@@ -57,14 +37,10 @@ public class VimeoSearchActivity extends Activity implements AsyncTaskListener, 
     @Bind(R.id.edtSearch)
     EditText edtSearch;
 
-    @Bind(R.id.btDone)
-    Button btDone;
-
-    GeneralAdapter adapter;
+    CommonAdapter adapter;
     String nextPage;
     VimeoRequestDTO requestDTO;
-    Animation inAnimation;
-    Animation outAnimation;
+    Dialog dialog;
     String[] type = new String[]{Constant.VIMEO_VIDEOS, Constant.VIMEO_USERS};
     String[] sort = new String[]{"Relevant", "Date", "Alphabetical", "Plays", "Likes", "Comments", "Duration"};
     String[] direction = new String[]{"ASC", "DESC"};
@@ -81,28 +57,6 @@ public class VimeoSearchActivity extends Activity implements AsyncTaskListener, 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.vimeo_search);
         ButterKnife.bind(this);
-        inAnimation = AnimationUtils.loadAnimation(this, R.anim.enter);
-        outAnimation = AnimationUtils.loadAnimation(this, R.anim.exit);
-
-        choseTypeAdapter = new SpinnerCommonAdapter(this,
-                R.layout.spinner_selector_item, type);
-        choseTypeAdapter.setDropDownViewResource(R.layout.spinner_selector_item);
-        spType.setAdapter(choseTypeAdapter);
-
-        choseSortAdapter = new SpinnerCommonAdapter(this,
-                R.layout.spinner_selector_item, sort);
-        choseTypeAdapter.setDropDownViewResource(R.layout.spinner_selector_item);
-        spSort.setAdapter(choseSortAdapter);
-
-        choseDirectionAdapter = new SpinnerCommonAdapter(this,
-                R.layout.spinner_selector_item, direction);
-        choseDirectionAdapter.setDropDownViewResource(R.layout.spinner_selector_item);
-        spDirection.setAdapter(choseDirectionAdapter);
-
-        choseFillterAdapter = new SpinnerCommonAdapter(this,
-                R.layout.spinner_selector_item, filter);
-        choseFillterAdapter.setDropDownViewResource(R.layout.spinner_selector_item);
-        spFilter.setAdapter(choseFillterAdapter);
 //============================Date========================
         EndlessScrollListener endlessScrollListener = new EndlessScrollListener()
         {
@@ -125,7 +79,6 @@ public class VimeoSearchActivity extends Activity implements AsyncTaskListener, 
         };
         listView.setOnScrollListener(endlessScrollListener);
         edtSearch.setOnEditorActionListener(this);
-        btAdvancedSearch.setOnCheckedChangeListener(this);
     }
 
     @Override
@@ -140,118 +93,156 @@ public class VimeoSearchActivity extends Activity implements AsyncTaskListener, 
         VideoPage videoPage = (VideoPage) obj;
         if (videoPage != null)
         {
-            List<Video> videos = videoPage.getVideos();
+            List<Item> videos = videoPage.getVideos();
             nextPage = videoPage.getNextPage();
             if (adapter == null)
             {
                 adapter = new CommonAdapter(videos, this);
                 listView.setAdapter(adapter);
+
             }
             else
             {
-                ((CommonAdapter)adapter).getVideos().addAll(videos);
+                adapter.getVideos().addAll(videos);
                 adapter.notifyDataSetChanged();
             }
         }
         progressBar.setVisibility(View.GONE);
     }
 
-    public void search(RequestDTO requestDTO)
+    public void search()
     {
         AsyncTaskSearchData asyncTask = new AsyncTaskSearchData(this, Constant.HOST_NAME.VIMEO, requestDTO);
         asyncTask.setListener(this);
         asyncTask.execute();
     }
 
+    @OnClick(R.id.btAdvancedFilter)
+    public void click()
+    {
+        adapter = null;
+        dialog = new Dialog(this);
+        dialog.setTitle("Advanced Filter");
+        dialog.setContentView(R.layout.dialog_vimeo_advanced_filter);
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+
+        final Spinner spinnerType = (Spinner) dialog.findViewById(R.id.spinner_type);
+        final Spinner spinnerShort = (Spinner) dialog.findViewById(R.id.spinner_sort);
+        final Spinner spinnerDirection = (Spinner) dialog.findViewById(R.id.spinner_direction);
+        final Spinner spinnerfillter = (Spinner) dialog.findViewById(R.id.spinner_filter);
+        Button btCancel = (Button) dialog.findViewById(R.id.dialog_vimeo_advanced_filter_btCancel);
+        Button btOk = (Button) dialog.findViewById(R.id.dialog_vimeo_advanced_filter_btOk);
+
+        choseTypeAdapter = new SpinnerCommonAdapter(this,
+                R.layout.spinner_selector_item, type);
+        choseTypeAdapter.setDropDownViewResource(R.layout.spinner_selector_item);
+
+        choseSortAdapter = new SpinnerCommonAdapter(this,
+                R.layout.spinner_selector_item, sort);
+        choseSortAdapter.setDropDownViewResource(R.layout.spinner_selector_item);
+
+        choseDirectionAdapter = new SpinnerCommonAdapter(this,
+                R.layout.spinner_selector_item, direction);
+        choseDirectionAdapter.setDropDownViewResource(R.layout.spinner_selector_item);
+
+        choseFillterAdapter = new SpinnerCommonAdapter(this,
+                R.layout.spinner_selector_item, filter);
+        choseFillterAdapter.setDropDownViewResource(R.layout.spinner_selector_item);
+
+        spinnerType.setAdapter(choseTypeAdapter);
+        spinnerShort.setAdapter(choseSortAdapter);
+        spinnerDirection.setAdapter(choseDirectionAdapter);
+        spinnerfillter.setAdapter(choseFillterAdapter);
+        btCancel.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                dialog.dismiss();
+            }
+        });
+        btOk.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                adapter = null;
+                String sort = (String) spinnerShort.getSelectedItem();
+                String filter = (String) spinnerfillter.getSelectedItem();
+                String direction = (String) spinnerDirection.getSelectedItem();
+                String query = "";
+                if (edtSearch.getText() != null)
+                {
+                    requestDTO = new VimeoRequestDTO
+                            .VimeoRequestBuilder(query)
+                            .sort(sort.toLowerCase())
+                            .filter(filter)
+                            .direction(direction.toLowerCase())
+                            .type((String) spinnerType.getSelectedItem())
+                            .build();
+                    search();
+                    dialog.dismiss();
+                }
+                else
+                {
+                    Toast.makeText(VimeoSearchActivity.this, "Please insert keyword to search", Toast.LENGTH_LONG).show();
+                }
+
+            }
+        });
+        dialog.show();
+        dialog.getWindow().setAttributes(lp);
+    }
+
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
     {
+        adapter = null;
         requestDTO = new VimeoRequestDTO
                 .VimeoRequestBuilder(edtSearch.getText().toString())
+                .type(Constant.VIMEO_VIDEOS)
                 .build();
-        search(requestDTO);
-        adapter = null;
+        search();
         return false;
     }
 
     @OnItemClick(R.id.list_view)
     public void itemClick(int position)
     {
-        Intent intent = new Intent(this, VimeoDetailActivity.class);
-        intent.putExtra("video", (Video) adapter.getItem(position));
-        startActivity(intent);
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-    {
-        if (isChecked)
+        Item item = (Item) adapter.getItem(position);
+        if (item instanceof Video)
         {
-            rlAdvancedSearch.setVisibility(View.VISIBLE);
-            rlAdvancedSearch.startAnimation(inAnimation);
+            Intent intent = new Intent(this, VimeoDetailActivity.class);
+            intent.putExtra("video", (Video) adapter.getItem(position));
+            startActivity(intent);
         }
-        else
+        else if (item instanceof Channel)
         {
-            rlAdvancedSearch.setVisibility(View.GONE);
-            rlAdvancedSearch.startAnimation(outAnimation);
+            Intent intent = new Intent(this, ListVideoActivity.class);
+            intent.putExtra("user", (Channel) adapter.getItem(position));
+            startActivity(intent);
         }
-    }
-
-    @OnClick(R.id.btDone)
-    public void advancedFilter()
-    {
-        adapter = null;
-        String sort = (String) spSort.getSelectedItem();
-        String filter = (String) spFilter.getSelectedItem();
-        String direction = (String) spDirection.getSelectedItem();
-        requestDTO = new VimeoRequestDTO
-                .VimeoRequestBuilder(edtSearch.getText().toString())
-                .sort(sort.toLowerCase())
-                .filter(filter)
-                .direction(direction.toLowerCase())
-                .build();
-        if (spType.getSelectedItem().equals(Constant.VIMEO_VIDEOS))
-        {
-            search(requestDTO);
-        }
-        else if (spType.getSelectedItem().equals(Constant.VIMEO_USERS))
-        {
-            searchUser(requestDTO);
-        }
-    }
-
-    private void searchUser(RequestDTO requestDTO)
-    {
-        AsyncTaskSearchUsers taskSearchUsers = new AsyncTaskSearchUsers(this, Constant.HOST_NAME.VIMEO, requestDTO);
-        taskSearchUsers.setListener(this);
-        taskSearchUsers.execute();
-    }
-
-    @Override
-    public void prepareUser()
-    {
 
     }
 
-    @Override
-    public void completeUser(Object obj)
-    {
-        UserPage userPage = (UserPage) obj;
-        if (userPage != null)
-        {
-            List<User> users = userPage.getUsers();
-            nextPage = userPage.getNextPage();
-            if (adapter == null)
-            {
-                adapter = new CommonUserAdapter(users, this);
-                listView.setAdapter(adapter);
-            }
-            else
-            {
-                ((CommonUserAdapter)adapter).getUsers().addAll(users);
-                adapter.notifyDataSetChanged();
-            }
-        }
-        progressBar.setVisibility(View.GONE);
-    }
+//
+//    @OnClick(R.id.btDone)
+//    public void advancedFilter()
+//    {
+//        String sort = (String) spSort.getSelectedItem();
+//        String filter = (String) spFilter.getSelectedItem();
+//        String direction = (String) spDirection.getSelectedItem();
+//        requestDTO = new VimeoRequestDTO
+//                .VimeoRequestBuilder(edtSearch.getText().toString())
+//                .sort(sort.toLowerCase())
+//                .filter(filter)
+//                .direction(direction.toLowerCase())
+//                .type((String) spType.getSelectedItem())
+//                .build();
+//        search();
+//        adapter = null;
+//    }
 }

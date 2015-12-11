@@ -7,9 +7,6 @@
         android:animateLayoutChanges="true"
        >
     <include
-            layout="@layout/vimeo_layout_advanced_search"
-            />
-    <include
             android:id="@+id/toolbar_search"
             layout="@layout/toolbar_search"
             android:layout_width="match_parent"
@@ -19,8 +16,8 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/rlAdvancedSearch"
             android:animateLayoutChanges="true"
+            android:layout_below="@id/toolbar_search"
             >
         <include
                 layout="@layout/listview_layout"

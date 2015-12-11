@@ -1,11 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
-                android:layout_height="100dp">
+                android:layout_height="100dp"
+                android:background="@color/white_smoke">
     <com.trungpt.downloadmaster.ui.customview.BezelImageView
             android:id="@+id/ivAvatar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:scaleType="centerCrop"
             app:maskDrawable="@drawable/circle_mask"
             android:layout_centerVertical="true"/>
@@ -13,10 +14,10 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_list_item"
             android:layout_toRightOf="@+id/ivAvatar"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/spacing_small"
             >
         <TextView
                 android:id="@+id/tvName"
@@ -28,7 +29,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/spacing_mini"
                 android:layout_marginLeft="@dimen/spacing_mini"
-                android:text="Sample Text"
                 android:textStyle="bold"
                 android:maxLines="2"
                 android:ellipsize="marquee"/>
@@ -39,9 +39,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tvName"
                 android:layout_marginLeft="@dimen/spacing_mini"
-                android:text="TRungpt"
                 android:textSize="@dimen/text_size_small"
-                android:drawableLeft="@drawable/ic_author"
+                android:textStyle="bold"
                 android:drawablePadding="@dimen/spacing_small"
                 android:layout_marginTop="@dimen/spacing_mini"/>
         <TextView
@@ -51,10 +50,9 @@
                 android:textSize="@dimen/text_size_small"
                 android:textColor="@color/gray_21"
                 android:layout_alignParentLeft="true"
+                android:textStyle="bold"
                 android:layout_below="@id/tvVideos"
                 android:layout_marginTop="@dimen/spacing_mini"
-                android:text="200"
-                android:drawableLeft="@drawable/ic_view"
                 android:drawablePadding="@dimen/spacing_small"
                 android:layout_marginBottom="@dimen/spacing_mini"
                 android:layout_marginLeft="@dimen/spacing_mini"/>
@@ -64,9 +62,11 @@
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_size_small"
                 android:textColor="@color/gray_21"
-                android:text="200"
                 android:layout_below="@id/tvFollows"
                 android:layout_marginLeft="@dimen/spacing_mini"
-               />
+                android:maxLines="3"
+                android:ellipsize="marquee"
+                android:textStyle="italic"
+                />
     </RelativeLayout>
 </RelativeLayout>

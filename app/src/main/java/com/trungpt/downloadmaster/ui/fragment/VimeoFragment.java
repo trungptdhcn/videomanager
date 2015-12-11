@@ -2,26 +2,23 @@ package com.trungpt.downloadmaster.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.*;
 import butterknife.Bind;
-import butterknife.OnClick;
 import butterknife.OnItemClick;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.trungpt.downloadmaster.R;
 import com.trungpt.downloadmaster.common.BaseFragment;
 import com.trungpt.downloadmaster.common.StringUtils;
-import com.trungpt.downloadmaster.sync.dto.RequestDTO;
 import com.trungpt.downloadmaster.sync.vimeo.request.VimeoRequestDTO;
 import com.trungpt.downloadmaster.ui.activity.VimeoDetailActivity;
 import com.trungpt.downloadmaster.ui.activity.VimeoSearchActivity;
-import com.trungpt.downloadmaster.ui.activity.YoutubeVideoDetailActivity;
 import com.trungpt.downloadmaster.ui.adapter.CommonAdapter;
+import com.trungpt.downloadmaster.ui.adapter.Item;
 import com.trungpt.downloadmaster.ui.adapter.Video;
 import com.trungpt.downloadmaster.ui.adapter.VideoPage;
 import com.trungpt.downloadmaster.ui.asynctask.AsyncTaskMostPopular;
-import com.trungpt.downloadmaster.ui.fragment.DailymotionFragment;
 import com.trungpt.downloadmaster.ui.listener.AsyncTaskListener;
 import com.trungpt.downloadmaster.ui.listener.EndlessScrollListener;
 import com.trungpt.downloadmaster.ui.utils.Constant;
@@ -35,13 +32,21 @@ public class VimeoFragment extends BaseFragment implements AsyncTaskListener
 {
     @Bind(R.id.progressBar)
     ProgressBar progressBar;
-    @Bind(R.id.tvSearch)
-    Button tvSearch;
     @Bind(R.id.list_view)
     ListView listView;
     String nextPage;
     CommonAdapter adapter;
     VimeoRequestDTO requestDTO;
+
+    @Bind(R.id.menu1)
+    FloatingActionMenu menu1;
+
+    @Bind(R.id.fab_up)
+    FloatingActionButton fabUp;
+    @Bind(R.id.fab_search)
+    FloatingActionButton fabSearch;
+    @Bind(R.id.fab_filter)
+    FloatingActionButton fabFilter;
 
     @Override
     public int getLayout()
@@ -80,7 +85,20 @@ public class VimeoFragment extends BaseFragment implements AsyncTaskListener
             }
         };
         listView.setOnScrollListener(endlessScrollListener);
-        tvSearch.setOnClickListener(new View.OnClickListener()
+        menu1.setOnMenuButtonClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (menu1.isOpened())
+                {
+                }
+                menu1.toggle(true);
+            }
+        });
+        menu1.setClosedOnTouchOutside(true);
+
+        fabSearch.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View v)
@@ -108,7 +126,7 @@ public class VimeoFragment extends BaseFragment implements AsyncTaskListener
         VideoPage videoPage = (VideoPage) obj;
         if (videoPage != null)
         {
-            List<Video> videos = videoPage.getVideos();
+            List<Item> videos = videoPage.getVideos();
             nextPage = videoPage.getNextPage();
             if (adapter == null)
             {

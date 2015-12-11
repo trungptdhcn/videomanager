@@ -6,7 +6,7 @@ import java.math.BigInteger;
 /**
  * Created by Trung on 11/25/2015.
  */
-public class Video implements Serializable
+public class Video extends Item
 {
     private String id;
     private String title;
@@ -18,7 +18,7 @@ public class Video implements Serializable
     private String author;
     private String url;
     private String urlThumbnail;
-    private Long duration;
+    private String duration;
     private BigInteger subscribe;
     private String embed;
     private String authorAvatarUrl;
@@ -124,12 +124,12 @@ public class Video implements Serializable
         this.author = author;
     }
 
-    public Long getDuration()
+    public String getDuration()
     {
         return duration;
     }
 
-    public void setDuration(Long duration)
+    public void setDuration(String duration)
     {
         this.duration = duration;
     }

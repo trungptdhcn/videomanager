@@ -1,26 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <include layout="@layout/edt_search"
-             android:id="@+id/layoutSearch"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginTop="@dimen/spacing_small"
-             android:layout_marginLeft="@dimen/spacing_normal"
-             android:layout_marginRight="@dimen/spacing_normal"></include>
+        android:layout_height="match_parent"
+        >
     <include
             layout="@layout/listview_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/spacing_small"
-            android:layout_below="@id/layoutSearch"></include>
+           ></include>
     <include
             layout="@layout/progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             ></include>
+    <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/menuOption"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            fab:menu_labels_ellipsize="end"
+            fab:menu_labels_singleLine="true"
+            fab:menu_backgroundColor="#ccffffff"
+            fab:menu_fab_label="Option">
+
+        <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_size="mini"
+                android:src="@drawable/ic_up"
+                />
+        <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                fab:fab_size="mini"
+                android:src="@drawable/ic_search_small"
+                />
+        <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_filter_small"
+                fab:fab_size="mini"
+                />
+    </com.github.clans.fab.FloatingActionMenu>
 </RelativeLayout>

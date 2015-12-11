@@ -1,19 +1,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/rlContainer"
                 android:layout_width="match_parent"
                 android:layout_height="100dp">
-    <ImageView
-            android:id="@+id/ivAvatar"
+    <RelativeLayout
+            android:id="@+id/list_item_rlAvatar"
             android:layout_width="150dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_default"
-            android:scaleType="centerCrop"
-            android:background="@drawable/bg_list_icon"/>
+            android:layout_height="100dp">
+        <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="150dp"
+                android:layout_height="100dp"
+                android:src="@drawable/ic_default"
+                android:scaleType="centerCrop"
+                android:background="@drawable/bg_list_icon"/>
+        <TextView
+                android:id="@+id/tvDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size_small"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_duration"
+                android:paddingLeft="@dimen/spacing_small"
+                android:paddingRight="@dimen/spacing_small"
+                android:paddingTop="@dimen/spacing_mini"
+                android:paddingBottom="@dimen/spacing_mini"
+                android:layout_margin="@dimen/spacing_small"/>
+    </RelativeLayout>
     <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bg_list_item"
-            android:layout_toRightOf="@+id/ivAvatar"
+            android:background="@color/white"
+            android:layout_toRightOf="@+id/list_item_rlAvatar"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             >

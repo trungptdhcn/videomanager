@@ -8,20 +8,20 @@ import java.util.List;
  */
 public class VideoPage
 {
-    private List<Video> videos = new ArrayList<>();
+    private List<Item> videos = new ArrayList<>();
     private String nextPage;
 
-    public VideoPage(List<Video> videos)
+    public VideoPage(List<Item> videos)
     {
         this.videos = videos;
     }
 
-    public List<Video> getVideos()
+    public List<Item> getVideos()
     {
         return videos;
     }
 
-    public void setVideos(List<Video> videos)
+    public void setVideos(List<Item> videos)
     {
         this.videos = videos;
     }

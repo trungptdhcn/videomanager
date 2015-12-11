@@ -7,22 +7,21 @@ import com.trungpt.downloadmaster.sync.dto.RequestDTO;
 import com.trungpt.downloadmaster.sync.vimeo.VimeoConnector;
 import com.trungpt.downloadmaster.sync.youtube.YoutubeConnector;
 import com.trungpt.downloadmaster.ui.listener.AsyncTaskListener;
-import com.trungpt.downloadmaster.ui.listener.AsyncTaskUsersListener;
 import com.trungpt.downloadmaster.ui.utils.Constant;
 
 /**
- * Created by Trung on 12/4/2015.
+ * Created by trung on 12/7/2015.
  */
-public class AsyncTaskSearchUsers extends AsyncTask<Void, Void, Object>
+public class AsyncTaskGetData extends AsyncTask<Void, Void, Object>
 {
-    AsyncTaskUsersListener listener;
+    AsyncTaskListener listener;
     private Constant.HOST_NAME host_name;
     YoutubeConnector ytbConnect;
     VimeoConnector vimeoConnect;
     DailymotionConnector dailymotionConnector;
     private RequestDTO requestDTO;
 
-    public AsyncTaskSearchUsers(Context context, Constant.HOST_NAME host_name, RequestDTO requestDTO)
+    public AsyncTaskGetData(Context context, Constant.HOST_NAME host_name, RequestDTO requestDTO)
     {
         this.host_name = host_name;
         this.requestDTO = requestDTO;
@@ -35,7 +34,7 @@ public class AsyncTaskSearchUsers extends AsyncTask<Void, Void, Object>
     protected void onPreExecute()
     {
         super.onPreExecute();
-        listener.prepareUser();
+        listener.prepare();
     }
 
     @Override
@@ -45,11 +44,13 @@ public class AsyncTaskSearchUsers extends AsyncTask<Void, Void, Object>
         switch (host_name)
         {
             case YOUTUBE:
+//                o = ytbConnect.search(requestDTO);
                 break;
             case VIMEO:
-                o = vimeoConnect.searchUser(requestDTO);
+                o = vimeoConnect.getVideosByUser(requestDTO);
                 break;
             case DAILYMOTION:
+                o = dailymotionConnector.getVideosByUser(requestDTO);
         }
         return o;
     }
@@ -58,11 +59,16 @@ public class AsyncTaskSearchUsers extends AsyncTask<Void, Void, Object>
     protected void onPostExecute(Object o)
     {
         super.onPostExecute(o);
-        listener.completeUser(o);
+        listener.complete(o);
     }
 
+    public AsyncTaskListener getListener()
+    {
+        return listener;
 
-    public void setListener(AsyncTaskUsersListener listener)
+    }
+
+    public void setListener(AsyncTaskListener listener)
     {
         this.listener = listener;
     }

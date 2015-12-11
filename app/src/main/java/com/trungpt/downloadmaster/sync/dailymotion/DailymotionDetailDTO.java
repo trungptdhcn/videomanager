@@ -17,7 +17,7 @@ public class DailymotionDetailDTO
     private String url;
     private String title;
     private BigInteger views_total;
-    private Long duration;
+    private int duration;
     @SerializedName("owner.screenname")
     private String author;
     @SerializedName("owner.fans_total")
@@ -105,12 +105,12 @@ public class DailymotionDetailDTO
         this.views_total = views_total;
     }
 
-    public Long getDuration()
+    public int getDuration()
     {
         return duration;
     }
 
-    public void setDuration(Long duration)
+    public void setDuration(int duration)
     {
         this.duration = duration;
     }
